@@ -11,8 +11,6 @@ namespace Kernys.Bson.Tests
 	[TestFixture]
 	public class BsonReaderTests
 	{
-		private const char Euro = '\u20ac';
-		
 		[Test]
 		public void ReadSingleObject()
 		{
