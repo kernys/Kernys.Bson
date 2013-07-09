@@ -33,3 +33,15 @@ Console.WriteLine(obj["bytes"].binaryValue); // => 128-length bytes
 ```
 
 That's all!
+
+
+Compatibility
+-------------------
+
+No need reflections.
+Works very well with Unity 3.x/4.x and any .NET framework versions.
+
+License
+-------------------
+
+Kernys.Bson is available under the MIT license.
