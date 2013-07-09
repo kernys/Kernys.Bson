@@ -20,7 +20,7 @@ obj["hello"] = 123;
 obj["where"] = new BSONObject();
 obj["where"]["Korea"] = "Asia";
 obj["where"]["USA"] = "America";
-obj["bytes"] = new byte[41223];
+obj["bytes"] = new byte[128];
 
 byte []buf = SimpleBSON.Dump(obj);
 Console.WriteLine (buf);
