@@ -39,6 +39,7 @@
     <Compile Include="BSONReaderTests.cs" />
     <Compile Include="BSONWriterTests.cs" />
     <Compile Include="MiscellaneousUtils.cs" />
+    <Compile Include="MinimalTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kernys.Bson\Kernys.Bson.csproj">

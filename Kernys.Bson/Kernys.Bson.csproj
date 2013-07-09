@@ -6,7 +6,7 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B44C8109-A8DD-4085-BE46-CE5C7436788E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Kernys.Bson</RootNamespace>
     <AssemblyName>Kernys.Bson</AssemblyName>
   </PropertyGroup>
