@@ -4,6 +4,9 @@ Kernys.Bson
 Simple BSON Encoder &amp; Decoder for C#
 
 
+Just copy Kernys.Bson/SimpleBSON.cs to your project folder.
+And Check it out below "Using Kernys.Bson" section !
+
 Using Kernys.Bson
 -------------------
 
@@ -16,7 +19,7 @@ obj["hello"] = 123;
 obj["where"] = new BSONObject();
 obj["where"]["Korea"] = "Asia";
 obj["where"]["USA"] = "America";
-obj["bytes"] = new byte[128];
+obj["bytes"] = new byte[41223];
 
 byte []buf = SimpleBSON.Dump(obj);
 Console.WriteLine (buf);
@@ -24,16 +27,15 @@ Console.WriteLine (buf);
 
 Decoding is much easier!
 ```csharp
-var obj = SimpleBSON.Load(buf);
+BSONObject obj = SimpleBSON.Load(buf);
 
-Console.WriteLine(obj["hello"].int32Value); // => 123
-Console.WriteLine(obj["where"]["Korea"].stringValue); // => "Asia"
-Console.WriteLine(obj["where"]["USA"].stringValue); // => "America"
-Console.WriteLine(obj["bytes"].binaryValue.Length); // => 128
+Console.WriteLine(obj["hello"]); // => 123
+Console.WriteLine(obj["where"]["Korea"]); // => "Asia"
+Console.WriteLine(obj["where"]["USA"]); // => "America"
+Console.WriteLine(obj["bytes"].binaryValue); // => 128-length bytes
 ```
 
 That's all!
-
 
 Compatibility
 -------------------
