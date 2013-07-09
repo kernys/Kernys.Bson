@@ -16,7 +16,7 @@ obj["hello"] = 123;
 obj["where"] = new BSONObject();
 obj["where"]["Korea"] = "Asia";
 obj["where"]["USA"] = "America";
-obj["bytes"] = new byte[41223];
+obj["bytes"] = new byte[128];
 
 byte []buf = SimpleBSON.Dump(obj);
 Console.WriteLine (buf);
@@ -24,12 +24,12 @@ Console.WriteLine (buf);
 
 Decoding is much easier!
 ```csharp
-BSONObject obj = SimpleBSON.Load(buf);
+var obj = SimpleBSON.Load(buf);
 
-Console.WriteLine(obj["hello"]); // => 123
-Console.WriteLine(obj["where"]["Korea"]); // => "Asia"
-Console.WriteLine(obj["where"]["USA"]); // => "America"
-Console.WriteLine(obj["bytes"].binaryValue); // => 128-length bytes
+Console.WriteLine(obj["hello"].int32Value); // => 123
+Console.WriteLine(obj["where"]["Korea"].stringValue); // => "Asia"
+Console.WriteLine(obj["where"]["USA"].stringValue); // => "America"
+Console.WriteLine(obj["bytes"].binaryValue.Length); // => 128
 ```
 
 That's all!
