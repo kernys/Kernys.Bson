@@ -5,6 +5,7 @@ Simple BSON Encoder &amp; Decoder for C#
 
 
 Just copy Kernys.Bson/SimpleBSON.cs to your project folder.
+
 And Check it out below "Using Kernys.Bson" section !
 
 Using Kernys.Bson
