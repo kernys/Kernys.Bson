@@ -580,7 +580,7 @@ namespace Kernys.Bson
 				case BSONValue.ValueType.Int64:
 				ms.WriteByte (0x12);
 				encodeCString (ms, name);
-				encodeInt64 (ms, v.int32Value);
+				encodeInt64 (ms, v.int64Value);
 				return;
 			};
 		}
