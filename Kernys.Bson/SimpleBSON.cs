@@ -100,7 +100,7 @@ namespace Kernys.Bson
 				throw new Exception(string.Format("Original type is {0}. Cannot convert from {0} to Int64", mValueType));
 			}
 		}
-		public byte []binaryValue {
+		public byte[] binaryValue {
 			get {
 				switch (mValueType) {
 					case ValueType.Binary:
@@ -132,7 +132,7 @@ namespace Kernys.Bson
 					case ValueType.String:
 					return _string.TrimEnd(new char[] {(char)0} );
 					case ValueType.Binary:
-					return Encoding.UTF8.GetString(_binary).TrimEnd(new char[] {(char)0} );
+					return Encoding.UTF8.GetString(_binary, 0, _binary.Length).TrimEnd(new char[] {(char)0} );
 				}
 
 				throw new Exception(string.Format("Original type is {0}. Cannot convert from {0} to string", mValueType));
@@ -261,19 +261,6 @@ namespace Kernys.Bson
 			mValueType = ValueType.Int64;
 			_int64 = v;
 		}
-
-		
-		public static bool operator ==(BSONValue a, object b)
-		{
-			if (b == null)
-				return true;
-			return System.Object.ReferenceEquals (a, b);
-		}
-
-		public static bool operator !=(BSONValue a, object b)
-		{
-			return !(a == b);
-		}
 	}
 
 	
@@ -384,7 +371,7 @@ namespace Kernys.Bson
 			mList.Clear ();
 		}
 
-		public virtual bool Contains(BSONValue v) {
+		public override bool Contains(BSONValue v) {
 			return mList.Contains (v);
 		}
 
@@ -398,7 +385,6 @@ namespace Kernys.Bson
 	{
 		private MemoryStream mMemoryStream;
 		private BinaryReader mBinaryReader;
-		private BinaryWriter mBinaryWriter;
 
 		public static BSONObject Load(byte[] buf) {
 			SimpleBSON bson = new SimpleBSON (buf);
@@ -408,7 +394,7 @@ namespace Kernys.Bson
 
 		public static byte[] Dump(BSONObject obj) {
 			
-			SimpleBSON bson = new SimpleBSON ();
+			SimpleBSON bson = new SimpleBSON (null);
 			MemoryStream ms = new MemoryStream ();
 
 			bson.encodeDocument (ms, obj);
@@ -420,13 +406,12 @@ namespace Kernys.Bson
 			return buf;
 		}
 
-		private SimpleBSON(byte[] buf = null) {
+		private SimpleBSON(byte[] buf) {
 			if (buf != null) {
 				mMemoryStream = new MemoryStream (buf);
 				mBinaryReader = new BinaryReader (mMemoryStream);
 			} else {
 				mMemoryStream = new MemoryStream ();
-				mBinaryWriter = new BinaryWriter (mMemoryStream);
 			}
 		}
 
@@ -452,7 +437,6 @@ namespace Kernys.Bson
 			} else if(elementType == 0x05) { // Binary
 				name = decodeCString ();
 				int length = mBinaryReader.ReadInt32 ();
-				byte binaryType = mBinaryReader.ReadByte ();
 
 				return new BSONValue(mBinaryReader.ReadBytes (length));
 
@@ -514,7 +498,7 @@ namespace Kernys.Bson
 			int length = mBinaryReader.ReadInt32 ();
 			byte []buf = mBinaryReader.ReadBytes (length);
 			
-			return Encoding.UTF8.GetString (buf);
+			return Encoding.UTF8.GetString (buf, 0, buf.Length);
 		}
 
 		private string decodeCString() {
@@ -655,4 +639,3 @@ namespace Kernys.Bson
 		}
 	}
 }
-
