@@ -132,7 +132,7 @@ namespace Kernys.Bson
 					case ValueType.String:
 					return _string.TrimEnd(new char[] {(char)0} );
 					case ValueType.Binary:
-					return Encoding.UTF8.GetString(_binary).TrimEnd(new char[] {(char)0} );
+					return Encoding.UTF8.GetString(_binary, 0, _binary.Length).TrimEnd(new char[] {(char)0} );
 				}
 
 				throw new Exception(string.Format("Original type is {0}. Cannot convert from {0} to string", mValueType));
@@ -498,7 +498,7 @@ namespace Kernys.Bson
 			int length = mBinaryReader.ReadInt32 ();
 			byte []buf = mBinaryReader.ReadBytes (length);
 			
-			return Encoding.UTF8.GetString (buf);
+			return Encoding.UTF8.GetString (buf, 0, buf.Length);
 		}
 
 		private string decodeCString() {
