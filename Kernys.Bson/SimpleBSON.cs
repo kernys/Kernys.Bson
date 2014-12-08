@@ -463,7 +463,7 @@ namespace Kernys.Bson
 			} else if(elementType == 0x09) { // DateTime
 				name = decodeCString ();
 				Int64 time = mBinaryReader.ReadInt64 ();
-				return new BSONValue (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + new TimeSpan(time));
+				return new BSONValue (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) + new TimeSpan(time*10000));
 			} else if(elementType == 0x0A) { // None
 				name = decodeCString ();
 				return new BSONValue ();
@@ -649,7 +649,13 @@ namespace Kernys.Bson
 			ms.Write (buf, 0, buf.Length);
 		}
 		private void encodeUTCDateTime(MemoryStream ms, DateTime dt) {
-			TimeSpan span = (dt - new DateTime (1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).ToLocalTime());
+			TimeSpan span;
+			if(dt.Kind == DateTimeKind.Local) {
+				span = (dt - new DateTime (1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).ToLocalTime());				
+			}
+			else {
+				span = dt - new DateTime (1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);				
+			}			
 			byte []buf = BitConverter.GetBytes ((Int64)(span.TotalSeconds * 1000));
 			ms.Write (buf, 0, buf.Length);
 		}
