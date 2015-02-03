@@ -130,7 +130,7 @@ namespace Kernys.Bson
 					case ValueType.Double:
 					return Convert.ToString (_double);
 					case ValueType.String:
-					return _string.TrimEnd(new char[] {(char)0} );
+					return _string != null ? _string.TrimEnd(new char[] {(char)0} ) : null;
 					case ValueType.Binary:
 					return Encoding.UTF8.GetString(_binary).TrimEnd(new char[] {(char)0} );
 				}
@@ -266,7 +266,7 @@ namespace Kernys.Bson
 		public static bool operator ==(BSONValue a, object b)
 		{
 			if (b == null)
-				return true;
+				return false;
 			return System.Object.ReferenceEquals (a, b);
 		}
 
