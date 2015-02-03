@@ -265,8 +265,6 @@ namespace Kernys.Bson
 		
 		public static bool operator ==(BSONValue a, object b)
 		{
-			if (b == null)
-				return false;
 			return System.Object.ReferenceEquals (a, b);
 		}
 
