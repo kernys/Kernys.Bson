@@ -131,6 +131,8 @@ namespace Kernys.Bson
 					return Convert.ToString (_double);
 					case ValueType.String:
 					return _string != null ? _string.TrimEnd(new char[] {(char)0} ) : null;
+					case ValueType.Boolean:
+					return _bool == true ? "true" : "false";
 					case ValueType.Binary:
 					return Encoding.UTF8.GetString(_binary).TrimEnd(new char[] {(char)0} );
 				}
@@ -191,6 +193,10 @@ namespace Kernys.Bson
 		public static implicit operator BSONValue(string v) {
 			return new BSONValue (v);
 		}
+
+		public static implicit operator BSONValue(bool v) {
+			return new BSONValue (v);
+		}
 		
 
 		public static implicit operator double(BSONValue v) {
@@ -215,6 +221,10 @@ namespace Kernys.Bson
 
 		public static implicit operator string(BSONValue v) {
 			return v.stringValue;
+		}
+
+		public static implicit operator bool(BSONValue v) {
+			return v.boolValue;
 		}
 
 		///
